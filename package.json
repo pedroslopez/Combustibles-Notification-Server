@@ -1,0 +1,24 @@
+{
+  "name": "notification-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pedroslopez@github.com/pedroslopez/Combustibles-Notification-Server.git"
+  },
+  "author": "Pedro Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedroslopez/Combustibles-Notification-Server/issues"
+  },
+  "homepage": "https://github.com/pedroslopez/Combustibles-Notification-Server#readme",
+  "dependencies": {
+    "expo-server-sdk": "^2.3.3",
+    "express": "^4.16.2",
+    "pg": "7.4.1"
+  }
+}
