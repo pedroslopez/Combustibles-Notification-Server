@@ -5,6 +5,6 @@
     "keywords": ["node", "express", "expo", "notifications", "combustibles"],
     "addons": ["heroku-postgresql", "scheduler"],
     "scripts": {
-        "postdeploy": "heroku pg:psql --app app_name < setup.sql"
+        "postdeploy": "psql < setup.sql"
     }
 }
