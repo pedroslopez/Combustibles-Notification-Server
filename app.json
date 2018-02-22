@@ -3,8 +3,5 @@
     "description": "Servidor de notificaciones para el app de combustibles RD.",
     "repository": "https://github.com/pedroslopez/combustibles-notification-server",
     "keywords": ["node", "express", "expo", "notifications", "combustibles"],
-    "addons": ["heroku-postgresql", "scheduler"],
-    "scripts": {
-        "postdeploy": "psql < setup.sql"
-    }
+    "addons": ["heroku-postgresql", "scheduler"]
 }
