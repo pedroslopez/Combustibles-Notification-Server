@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/pedroslopez/Combustibles-Notification-Server#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "expo-server-sdk": "^2.3.3",
     "express": "^4.16.2",
+    "node-fetch": "^2.0.0",
     "pg": "7.4.1"
   }
 }
