@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 let expo = new Expo();
 
 // Get last date
-const requestUrl = 'https://www.micm.gob.do/direcciones/hidrocarburos/avisos-semanales-de-precios/combustibles';
+const requestUrl = 'https://micm.gob.do/direcciones/hidrocarburos/avisos-semanales-de-precios/precios-de-combustibles';
 
 function updateLastValue(newValue) {
     const client = new Client({
@@ -27,15 +27,24 @@ function updateLastValue(newValue) {
     });
 }
 
+function findTextAndReturnRemainder(target, variable){
+    let chopFront = target.substring(target.search(variable)+variable.length,target.length);
+    return chopFront.substring(0,chopFront.search(";"));
+}
+
 fetch(requestUrl)
     .then((response) => response.text())
     .then((html) => {
         let $ = cheerio.load(html);
-        let dateScanned = $('.uk-grid.uk-grid-collapse.uk-visible-large .uk-text-small').first().text();
+        let scriptContent = $('script[type="text/javascript"]:not([src])').first().html();
+        let findAndCleanTitle = findTextAndReturnRemainder(scriptContent, "window.ArtDataData16 = ");
+        let dataResult = JSON.parse(findAndCleanTitle);
+        let dateScanned = dataResult[0].rangoDeVigencia;
     
         const client = new Client({
             connectionString: process.env.DATABASE_URL,
         });
+
         client.connect((conerr) => {
             if (conerr) {
                 throw conerr;
@@ -64,7 +73,7 @@ fetch(requestUrl)
                             messages.push({
                                 to: token,
                                 sound: 'default',
-                                body: 'Los precios han sido actualizados.'
+                                body: 'Los precios han sido actualizados para ' + dateScanned + '.'
                             });
                         }
 
