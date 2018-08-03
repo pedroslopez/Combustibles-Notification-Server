@@ -1,7 +1,7 @@
 ## Combustibles/Expo Notification Server
 This simple server built for Heroku registers and stores notification tokens from an Expo app.
 
-It's been made for use with the [Combustibles RD](https://github.com/pedroslopez/PreciosCombustiblesRD) app, but the token registration can be used for any app. The only thing application-specific thing here is `scan.js`.
+It's been made for use with the [Combustibles RD](https://github.com/pedroslopez/PreciosCombustiblesRD) app, but the token registration can be used for any app. The only application-specific thing here is `scan.js`.
 
 The Heroku app provides a quick and free way to get a push notification token registration server for Expo. 
 
