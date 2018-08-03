@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 let expo = new Expo();
 
 // Get last date
-const requestUrl = 'https://micm.gob.do/direcciones/hidrocarburos/avisos-semanales-de-precios/precios-de-combustibles';
+const requestUrl = 'https://micm.gob.do/combustibleRSS.xml';
 
 function updateLastValue(newValue) {
     const client = new Client({
@@ -27,19 +27,12 @@ function updateLastValue(newValue) {
     });
 }
 
-function findTextAndReturnRemainder(target, variable){
-    let chopFront = target.substring(target.search(variable)+variable.length,target.length);
-    return chopFront.substring(0,chopFront.search(";"));
-}
-
 fetch(requestUrl)
     .then((response) => response.text())
     .then((html) => {
-        let $ = cheerio.load(html);
-        let scriptContent = $('script[type="text/javascript"]:not([src])').first().html();
-        let findAndCleanTitle = findTextAndReturnRemainder(scriptContent, "window.ArtDataData16 = ");
-        let dataResult = JSON.parse(findAndCleanTitle);
-        let dateScanned = dataResult[0].rangoDeVigencia;
+        let $ = cheerio.load(html, {xmlMode: true});
+        let title = $('item title').text().split('emana del ');
+        let dateScanned = title.length > 1 ? title[1] : '';
     
         const client = new Client({
             connectionString: process.env.DATABASE_URL,
